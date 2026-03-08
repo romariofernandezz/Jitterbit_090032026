@@ -1,13 +1,17 @@
 const express = require("express")
 const mongoose = require("mongoose")
-const bodyParser = require("body-parser")
 const orderRoutes = require("./routes/orderRoutes")
 
 const app = express()
 
-app.use(bodyParser.json())
+app.use(express.json())
 
-mongoose.connect("mongodb://localhost:27017/orders", {
+mongoose.connect("mongodb://127.0.0.1:27017/orders")
+.then(() => {
+    console.log("MongoDB conectado")
+})
+.catch(err => {
+    console.log("Erro MongoDB:", err)
 })
 
 app.use("/order", orderRoutes)
